@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
+from . models import Movie
 
 # Create your views here.
 
@@ -13,3 +14,10 @@ class About(TemplateView):
 
 class Movies(TemplateView):
     template_name = 'movie_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movies'] = Movie.objects.all()
+        return context
+
+    
